@@ -7,7 +7,7 @@ using RecordsApi.Models;
 namespace RecordsApi.Controller
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/records")]
     public class RecordsItemsController : ControllerBase
     {
         private readonly RecordsContext _context;
@@ -17,16 +17,17 @@ namespace RecordsApi.Controller
             _context = context;
         }
 
-        // // GET: api/RecordsItems
+        // GET: api/records
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RecordsItem>>> GetRecordsItems()
         {
-            return await _context.RecordsItems.ToListAsync();
+            return await _context.RecordsItems
+            .ToListAsync();
         }
 
-        // GET: api/RecordsItems/5
+        // GET: api/records/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<RecordsItem>> GetRecordsItem(long id)
+        public async Task<ActionResult<RecordsItem>> GetRecordsItem(int id)
         {
             var recordsItem = await _context.RecordsItems.FindAsync(id);
 
@@ -38,7 +39,7 @@ namespace RecordsApi.Controller
             return recordsItem;
         }
 
-        // POST: api/RecordsItems
+        // POST: api/records
         [HttpPost]
         public async Task<ActionResult<RecordsItem>> PostRecordsItem(RecordsItem recordsItem)
         {
@@ -48,9 +49,9 @@ namespace RecordsApi.Controller
             return CreatedAtAction(nameof(GetRecordsItem), new { id = recordsItem.Id }, recordsItem);
         }
 
-        // DELETE: api/RecordsItems/5
+        // DELETE: api/records/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRecordsItem(long id)
+        public async Task<IActionResult> DeleteRecordsItem(int id)
         {
             var recordsItem = await _context.RecordsItems.FindAsync(id);
 
